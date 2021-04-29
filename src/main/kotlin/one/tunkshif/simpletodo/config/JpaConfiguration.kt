@@ -27,7 +27,7 @@ class JpaConfiguration {
             setPackagesToScan("one.tunkshif.simpletodo.model")
             setJpaProperties(Properties().apply {
                 setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect")
-                setProperty("hibernate.hbm2ddl.auto", "create")
+                setProperty("hibernate.hbm2ddl.auto", "update")
                 setProperty("hibernate.show_sql", "true")
             })
         }

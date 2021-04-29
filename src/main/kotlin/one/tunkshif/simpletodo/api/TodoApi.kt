@@ -1,21 +1,42 @@
 package one.tunkshif.simpletodo.api
 
+import one.tunkshif.simpletodo.extension.Logging
+import one.tunkshif.simpletodo.model.ResponseFormat
 import one.tunkshif.simpletodo.model.Todo
+import one.tunkshif.simpletodo.model.request.TodoRequest
 import one.tunkshif.simpletodo.repository.TodoRepository
+import one.tunkshif.simpletodo.repository.UserRepository
+import one.tunkshif.simpletodo.service.TodoService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import javax.annotation.security.RolesAllowed
+import org.springframework.http.MediaType
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/todo", produces = ["application/json"])
+@RequestMapping("/api/todolist", produces = ["application/json"])
 class TodoApi(
-    @Autowired
-    val todoRepository: TodoRepository
-) {
+    @Autowired val todoService: TodoService,
+    @Autowired val userRepository: UserRepository,
+    @Autowired val todoRepository: TodoRepository
+) : Logging {
     @GetMapping
-    @RolesAllowed("ADMIN")
-    fun getAll(): Collection<Todo> =
-        todoRepository.findAll()
+    fun getAllByUsername(@RequestParam username: String): ResponseFormat<Collection<Todo>> =
+        ResponseFormat(data = todoService.read(username))
+
+    @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
+    fun addOne(request: TodoRequest): ResponseFormat<String> {
+        todoService.create(request.username, request.title)
+        return ResponseFormat(data = "added")
+    }
+
+    @PutMapping("/{todoId}")
+    fun markOneAsDone(@PathVariable todoId: Long): ResponseFormat<String> {
+        todoService.update(todoId)
+        return ResponseFormat(data = "done")
+    }
+
+    @DeleteMapping("/{todoId}")
+    fun deleteOne(@PathVariable todoId: Long): ResponseFormat<String> {
+        todoService.delete(todoId)
+        return ResponseFormat(data = "deleted")
+    }
 }

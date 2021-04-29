@@ -1,7 +1,6 @@
 package one.tunkshif.simpletodo.security
 
 import one.tunkshif.simpletodo.extension.Logging
-import one.tunkshif.simpletodo.extension.logger
 import one.tunkshif.simpletodo.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders

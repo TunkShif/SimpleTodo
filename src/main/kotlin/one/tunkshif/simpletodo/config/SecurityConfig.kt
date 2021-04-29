@@ -67,7 +67,7 @@ class SecurityConfig(
                 )
             }
             .and().authorizeRequests()
-            .antMatchers("/api/user/**").permitAll()
+            .antMatchers("/api/users/**").permitAll()
             .anyRequest().authenticated()
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)

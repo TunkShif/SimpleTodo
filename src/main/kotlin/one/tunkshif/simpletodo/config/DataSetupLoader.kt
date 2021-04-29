@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
-@Component
+//@Component
 class DataSetupLoader(
     @Autowired val userRepository: UserRepository,
     @Autowired val roleRepository: RoleRepository,
@@ -60,12 +60,19 @@ class DataSetupLoader(
 
     @Transactional
     fun createTodos() {
-        val user = userRepository.findByUsername("demo")
-        for (i in 1..20) {
+        val userDemo = userRepository.findByUsername("demo")
+        val userAdmin = userRepository.findByUsername("admin")
+        for (i in 1..10) {
             todoRepository.save(
                 Todo(
-                    title = "this is a todo $i",
-                    user = user!!,
+                    title = "this is a todo for demo $i",
+                    user = userDemo!!,
+                )
+            )
+            todoRepository.save(
+                Todo(
+                    title = "this is a todo admin $i",
+                    user = userAdmin!!,
                 )
             )
         }

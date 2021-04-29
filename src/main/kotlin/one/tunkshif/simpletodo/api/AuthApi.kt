@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/user", produces = ["application/json"])
+@RequestMapping("/api/users", produces = ["application/json"])
 class AuthApi(
     @Autowired val authService: UserAuthService,
     @Autowired val authenticationManager: AuthenticationManager,
