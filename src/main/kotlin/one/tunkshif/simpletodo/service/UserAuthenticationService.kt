@@ -28,17 +28,4 @@ class UserAuthenticationService(
             roles = mutableListOf(userRole)
         ))
     }
-
-    fun login(username: String, passwd: String) {
-        val user = userRepository.findByUsername(username)
-        TODO()
-    }
-
-    fun logout(user: User) {
-        TODO("hhh")
-    }
-
-    fun findByToken(token: String): User? {
-        TODO()
-    }
 }
