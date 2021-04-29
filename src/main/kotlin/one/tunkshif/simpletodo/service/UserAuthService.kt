@@ -14,11 +14,11 @@ import javax.persistence.PersistenceContext
 @Transactional
 class UserAuthService(
     @PersistenceContext
-    val entityManager: EntityManager,
+    private val entityManager: EntityManager,
     @Autowired
-    val userRepository: UserRepository,
+    private val userRepository: UserRepository,
     @Autowired
-    val roleRepository: RoleRepository
+    private val roleRepository: RoleRepository
 ) {
     fun register(username: String, password: String): User {
         return userRepository.save(User(

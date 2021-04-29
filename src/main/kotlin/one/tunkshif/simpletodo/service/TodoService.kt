@@ -13,11 +13,11 @@ import javax.persistence.PersistenceContext
 @Transactional
 class TodoService(
     @PersistenceContext
-    val entityManager: EntityManager,
+    private val entityManager: EntityManager,
     @Autowired
-    val userRepository: UserRepository,
+    private val userRepository: UserRepository,
     @Autowired
-    val todoRepository: TodoRepository
+    private val todoRepository: TodoRepository
 ) {
 
     fun create(username: String, title: String): Todo {

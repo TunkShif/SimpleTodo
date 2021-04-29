@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/todolist", produces = ["application/json"])
 class TodoApi(
-    @Autowired val todoService: TodoService,
-    @Autowired val userRepository: UserRepository,
-    @Autowired val todoRepository: TodoRepository
+    @Autowired val todoService: TodoService
 ) : Logging {
     @GetMapping
     fun getAllByUsername(@RequestParam username: String): ResponseFormat<Collection<Todo>> =
