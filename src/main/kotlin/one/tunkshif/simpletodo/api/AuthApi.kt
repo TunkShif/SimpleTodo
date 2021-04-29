@@ -2,21 +2,19 @@ package one.tunkshif.simpletodo.api
 
 import one.tunkshif.simpletodo.model.User
 import one.tunkshif.simpletodo.security.JwtTokenUtil
-import one.tunkshif.simpletodo.service.UserAuthenticationService
+import one.tunkshif.simpletodo.service.UserAuthService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.BadCredentialsException
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/user", produces = ["application/json"])
-@CrossOrigin("*")
+@RequestMapping("/api/user", produces = ["application/json"])
 class AuthApi(
-    @Autowired val authService: UserAuthenticationService,
+    @Autowired val authService: UserAuthService,
     @Autowired val authenticationManager: AuthenticationManager,
     @Autowired val jwtTokenUtil: JwtTokenUtil,
     @Autowired val passwordEncoder: PasswordEncoder
@@ -27,7 +25,6 @@ class AuthApi(
 
     @GetMapping("/login")
     fun login(@RequestParam username: String, @RequestParam password: String): ResponseEntity<User> {
-
         val authenticate = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(username, password)
         )

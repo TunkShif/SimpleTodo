@@ -23,11 +23,10 @@ class JwtTokenUtil : Logging {
             .signWith(jwtKey)
             .compact()
 
-    // TODO
     fun getUsername(token: String): String =
         Jwts.parserBuilder().setSigningKey(jwtKey).build()
             .parseClaimsJws(token).body.subject
-//            .split(",")[1]
+            .split(",").last()
 
     fun getExpirationDate(token: String): Date =
         Jwts.parserBuilder().setSigningKey(jwtKey).build()
@@ -38,7 +37,7 @@ class JwtTokenUtil : Logging {
             Jwts.parserBuilder().setSigningKey(jwtKey).build()
                 .parseClaimsJws(token)
             return true
-        } catch (e: SecurityException) {
+        } catch (e: SignatureException) {
             logger().error("Invalid JWT signature - ${e.message}")
         } catch (e: MalformedJwtException) {
             logger().error("Invalid JWT token - ${e.message}")

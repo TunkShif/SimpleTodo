@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext
 
 @Service
 @Transactional
-class UserAuthenticationService(
+class UserAuthService(
     @PersistenceContext
     val entityManager: EntityManager,
     @Autowired
@@ -21,11 +21,10 @@ class UserAuthenticationService(
     val roleRepository: RoleRepository
 ) {
     fun register(username: String, password: String): User {
-        val userRole = roleRepository.findByType(Role.Type.ROLE_USER)
         return userRepository.save(User(
             username = username,
             password = password,
-            roles = mutableListOf(userRole)
+            roles = hashSetOf(Role(type = Role.Type.ROLE_USER))
         ))
     }
 }

@@ -25,17 +25,11 @@ class JwtTokenFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val header: String? = request.getHeader(HttpHeaders.AUTHORIZATION)
-        if (header.isNullOrEmpty() || !header.startsWith("Bearer")) {
+        val token: String? = request.getHeader(HttpHeaders.AUTHORIZATION)
+        if (token.isNullOrEmpty() || !jwtTokenUtil.validate(token)) {
             filterChain.doFilter(request, response)
             return
         }
-        val token = header.split(" ").last().trim()
-        if (!jwtTokenUtil.validate(token)) {
-            filterChain.doFilter(request, response)
-            return
-        }
-        logger().info(jwtTokenUtil.getUsername(token))
         val user: UserDetails? = userRepo.findByUsername(jwtTokenUtil.getUsername(token))
         val authentication = UsernamePasswordAuthenticationToken(
             user, null, user?.authorities

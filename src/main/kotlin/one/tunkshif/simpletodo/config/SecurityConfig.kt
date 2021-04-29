@@ -66,10 +66,11 @@ class SecurityConfig(
                     exception.message
                 )
             }
-            .and().addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
-            .authorizeRequests()
-            .antMatchers("/", "/user/*").permitAll()
+            .and().authorizeRequests()
+            .antMatchers("/api/user/**").permitAll()
             .anyRequest().authenticated()
+
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter::class.java)
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {

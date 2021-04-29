@@ -14,13 +14,12 @@ data class User(
     private var username: String,
     @Column(nullable = false, length = 100)
     private var password: String,
-    @ManyToMany(targetEntity = Role::class)
-    private var roles: MutableCollection<Role>
+    @ManyToMany(targetEntity = Role::class, fetch = FetchType.EAGER)
+    private var roles: Set<Role> = hashSetOf()
 ) : UserDetails {
 
     override fun getUsername() = username
 
-    @JsonIgnore
     override fun getAuthorities() = roles
 
     @JsonIgnore

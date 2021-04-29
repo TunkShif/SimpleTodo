@@ -1,4 +1,8 @@
 package one.tunkshif.simpletodo.repository
 
-interface TodoRepository {
-}
+import one.tunkshif.simpletodo.model.Todo
+import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
+
+@Repository
+interface TodoRepository : JpaRepository<Todo, Long>
