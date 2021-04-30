@@ -1,5 +1,6 @@
 package one.tunkshif.simpletodo.api
 
+import one.tunkshif.simpletodo.model.ResponseFormat
 import one.tunkshif.simpletodo.model.User
 import one.tunkshif.simpletodo.security.JwtTokenUtil
 import one.tunkshif.simpletodo.service.UserAuthService
@@ -20,17 +21,19 @@ class AuthApi(
     @Autowired val passwordEncoder: PasswordEncoder
 ) {
     @GetMapping("/register")
-    fun register(@RequestParam username: String, @RequestParam password: String) =
-        authService.register(username, passwordEncoder.encode(password))
+    fun register(@RequestParam username: String, @RequestParam password: String): ResponseFormat<User> =
+        ResponseFormat(
+            data = authService.register(username, passwordEncoder.encode(password))
+        )
 
     @GetMapping("/login")
-    fun login(@RequestParam username: String, @RequestParam password: String): ResponseEntity<User> {
+    fun login(@RequestParam username: String, @RequestParam password: String): ResponseEntity<ResponseFormat<User>> {
         val authenticate = authenticationManager.authenticate(
             UsernamePasswordAuthenticationToken(username, password)
         )
         val user = authenticate.principal as User
         return ResponseEntity.ok()
             .header(HttpHeaders.AUTHORIZATION, jwtTokenUtil.generateAccessToken(user))
-            .body(user)
+            .body(ResponseFormat(data = user))
     }
 }

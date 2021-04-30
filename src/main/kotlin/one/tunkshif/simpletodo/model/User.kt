@@ -12,6 +12,7 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
+    @JsonIgnore
     var id: Long = 0,
     @Column(nullable = false, length = 20, unique = true)
     @Size(min=3, max=20, message = "Length ranging from 3 to 20")

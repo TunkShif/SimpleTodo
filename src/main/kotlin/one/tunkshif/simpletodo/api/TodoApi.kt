@@ -4,8 +4,6 @@ import one.tunkshif.simpletodo.extension.Logging
 import one.tunkshif.simpletodo.model.ResponseFormat
 import one.tunkshif.simpletodo.model.Todo
 import one.tunkshif.simpletodo.model.request.TodoRequest
-import one.tunkshif.simpletodo.repository.TodoRepository
-import one.tunkshif.simpletodo.repository.UserRepository
 import one.tunkshif.simpletodo.service.TodoService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.MediaType

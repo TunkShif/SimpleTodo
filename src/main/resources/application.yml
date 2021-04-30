@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    password: mysqlTK.SF777
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    username: tunkshif
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+  datasource:
+    password: sqlTK.SF777
+server:
+  port: 8888

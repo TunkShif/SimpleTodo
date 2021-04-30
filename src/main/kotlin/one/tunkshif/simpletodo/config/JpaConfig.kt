@@ -18,7 +18,7 @@ import javax.sql.DataSource
 @Configuration
 @ComponentScan
 @EnableTransactionManagement
-class JpaConfiguration {
+class JpaConfig {
     @Bean("entityManagerFactory")
     fun createEntityManagerFactory(@Autowired dataSource: DataSource): LocalContainerEntityManagerFactoryBean =
         LocalContainerEntityManagerFactoryBean().apply {
@@ -32,7 +32,6 @@ class JpaConfiguration {
             })
         }
 
-    @Bean
     fun createDataSource(): DataSource {
         val config = HikariConfig().apply {
             driverClassName = "com.mysql.jdbc.Driver"

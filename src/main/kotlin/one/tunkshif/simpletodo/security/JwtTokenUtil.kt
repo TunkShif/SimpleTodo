@@ -2,6 +2,7 @@ package one.tunkshif.simpletodo.security
 
 import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
+import io.jsonwebtoken.security.SignatureException
 import one.tunkshif.simpletodo.extension.Logging
 import one.tunkshif.simpletodo.extension.logger
 import one.tunkshif.simpletodo.model.User
